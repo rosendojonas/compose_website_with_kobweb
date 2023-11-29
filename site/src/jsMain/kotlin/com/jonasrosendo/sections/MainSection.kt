@@ -2,11 +2,13 @@ package com.jonasrosendo.sections
 
 import androidx.compose.runtime.Composable
 import com.jonasrosendo.components.Header
+import com.jonasrosendo.components.SocialBar
 import com.jonasrosendo.models.Section
 import com.jonasrosendo.utils.Constants.SECTION_WIDTH
 import com.jonasrosendo.utils.Res
 import com.varabyte.kobweb.compose.css.ObjectFit
 import com.varabyte.kobweb.compose.foundation.layout.Box
+import com.varabyte.kobweb.compose.foundation.layout.Column
 import com.varabyte.kobweb.compose.ui.Alignment
 import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.modifiers.fillMaxSize
@@ -25,7 +27,7 @@ fun MainSection() {
         contentAlignment = Alignment.TopCenter
     ) {
         MainBackground()
-        Header()
+        MainContent()
     }
 }
 
@@ -36,4 +38,16 @@ fun MainBackground() {
         src = Res.Image.BACKGROUND,
         description = "background image"
     )
+}
+
+@Composable
+fun MainContent() {
+    Column(
+        modifier = Modifier
+            .fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Header()
+        SocialBar()
+    }
 }
