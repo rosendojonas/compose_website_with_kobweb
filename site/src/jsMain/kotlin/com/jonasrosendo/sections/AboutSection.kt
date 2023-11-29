@@ -1,6 +1,6 @@
 package com.jonasrosendo.sections
 
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import com.jonasrosendo.components.SectionTitle
 import com.jonasrosendo.components.SkillBar
 import com.jonasrosendo.models.Section
@@ -10,7 +10,9 @@ import com.jonasrosendo.styles.AboutImageStyle
 import com.jonasrosendo.styles.AboutTextStyle
 import com.jonasrosendo.utils.Constants
 import com.jonasrosendo.utils.Constants.LOREM_IPSUM_SHORT
+import com.jonasrosendo.utils.ObserveViewportEntered
 import com.jonasrosendo.utils.Res
+import com.jonasrosendo.utils.animatePercentageValues
 import com.varabyte.kobweb.compose.css.FontStyle
 import com.varabyte.kobweb.compose.css.FontWeight
 import com.varabyte.kobweb.compose.foundation.layout.Arrangement
@@ -26,6 +28,7 @@ import com.varabyte.kobweb.silk.components.layout.numColumns
 import com.varabyte.kobweb.silk.components.style.breakpoint.Breakpoint
 import com.varabyte.kobweb.silk.components.style.toModifier
 import com.varabyte.kobweb.silk.theme.breakpoint.rememberBreakpoint
+import kotlinx.coroutines.launch
 import org.jetbrains.compose.web.css.percent
 import org.jetbrains.compose.web.css.px
 import org.jetbrains.compose.web.dom.P
@@ -85,6 +88,23 @@ fun AboutImage() {
 
 @Composable
 fun AboutMe() {
+    val scope = rememberCoroutineScope()
+    val viewportEntered = remember { mutableStateOf(false) }
+    val animatedPercentage = remember { mutableStateListOf(0, 0, 0, 0, 0) }
+
+    ObserveViewportEntered(sectionId = Section.About.id, distanceFromTop = 300.0) {
+        viewportEntered.value = true
+        Skill.entries.forEach { skill ->
+            scope.launch {
+                animatePercentageValues(
+                    percent = skill.percentage.value.toInt()
+                ) {
+                    animatedPercentage[skill.ordinal] = it
+                }
+            }
+        }
+    }
+
     Column(
         modifier = Modifier
             .fillMaxWidth(),
@@ -106,8 +126,11 @@ fun AboutMe() {
         }
 
         Skill.entries.forEach { skill ->
-            SkillBar(name = skill.title, percentage = skill.percentage)
+            SkillBar(
+                name = skill.title, index = skill.ordinal,
+                percentage = if (viewportEntered.value) skill.percentage else 0.percent,
+                animatedPercentageValue = if (viewportEntered.value) animatedPercentage[skill.ordinal] else 0
+            )
         }
-
     }
 }
