@@ -7,7 +7,7 @@ import com.jonasrosendo.models.Section
 import com.jonasrosendo.models.Theme
 import com.jonasrosendo.styles.HireMeButtonStyle
 import com.jonasrosendo.styles.MainImageStyle
-import com.jonasrosendo.utils.Constants.FONT_FAMILY
+import com.jonasrosendo.utils.Constants.STANDARD_FONT_FAMILY
 import com.jonasrosendo.utils.Constants.LOREM_IPSUM_SHORTEST
 import com.jonasrosendo.utils.Constants.SECTION_WIDTH
 import com.jonasrosendo.utils.Res
@@ -38,7 +38,6 @@ import org.jetbrains.compose.web.dom.Text
 @Composable
 fun MainSection() {
 
-    val breakpoint = rememberBreakpoint()
     Box(
         modifier = Modifier
             .id(Section.Home.id)
@@ -46,7 +45,7 @@ fun MainSection() {
         contentAlignment = Alignment.TopCenter
     ) {
         MainBackground()
-        MainContent(breakpoint = breakpoint)
+        MainContent()
     }
 }
 
@@ -60,7 +59,9 @@ fun MainBackground() {
 }
 
 @Composable
-fun MainContent(breakpoint: Breakpoint) {
+fun MainContent() {
+    val breakpoint = rememberBreakpoint()
+
     Column(
         modifier = Modifier
             .fillMaxSize(),
@@ -102,7 +103,7 @@ fun MainText(breakpoint: Breakpoint) {
             P(
                 attrs = Modifier
                     .margin(topBottom = 0.px)
-                    .fontFamily(FONT_FAMILY)
+                    .fontFamily(STANDARD_FONT_FAMILY)
                     .fontSize(if(breakpoint >= Breakpoint.LG) 45.px else 20.px)
                     .fontWeight(FontWeight.Normal)
                     .color(Theme.Primary.rgb)
@@ -114,7 +115,7 @@ fun MainText(breakpoint: Breakpoint) {
             P(
                 attrs = Modifier
                     .margin(top = 20.px, bottom = 0.px)
-                    .fontFamily(FONT_FAMILY)
+                    .fontFamily(STANDARD_FONT_FAMILY)
                     .fontSize(if (breakpoint >= Breakpoint.LG) 68.px else 40.px)
                     .fontWeight(FontWeight.Bolder)
                     .color(Theme.Secondary.rgb)
@@ -126,7 +127,7 @@ fun MainText(breakpoint: Breakpoint) {
             P(
                 attrs = Modifier
                     .margin(top = 10.px, bottom = 5.px)
-                    .fontFamily(FONT_FAMILY)
+                    .fontFamily(STANDARD_FONT_FAMILY)
                     .fontSize(20.px)
                     .fontWeight(FontWeight.Bold)
                     .color(Theme.Secondary.rgb)
@@ -139,7 +140,7 @@ fun MainText(breakpoint: Breakpoint) {
                 attrs = Modifier
                     .margin(bottom = 25.px)
                     .maxWidth(400.px)
-                    .fontFamily(FONT_FAMILY)
+                    .fontFamily(STANDARD_FONT_FAMILY)
                     .fontSize(15.px)
                     .fontStyle(FontStyle.Italic)
                     .fontWeight(FontWeight.Normal)

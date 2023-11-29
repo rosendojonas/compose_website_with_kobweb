@@ -5,7 +5,7 @@ import com.jonasrosendo.models.Section
 import com.jonasrosendo.models.Theme
 import com.jonasrosendo.styles.LogoStyle
 import com.jonasrosendo.styles.NavigationItemStyle
-import com.jonasrosendo.utils.Constants.FONT_FAMILY
+import com.jonasrosendo.utils.Constants.STANDARD_FONT_FAMILY
 import com.jonasrosendo.utils.Res
 import com.varabyte.kobweb.compose.css.FontWeight
 import com.varabyte.kobweb.compose.css.TextDecorationLine
@@ -72,7 +72,7 @@ fun RightSide() {
                 path = section.path,
                 modifier = NavigationItemStyle.toModifier()
                     .margin(right = 30.px)
-                    .fontFamily(FONT_FAMILY)
+                    .fontFamily(STANDARD_FONT_FAMILY)
                     .fontSize(18.px)
                     .fontWeight(FontWeight.Normal)
                     .textDecorationLine(TextDecorationLine.None),
